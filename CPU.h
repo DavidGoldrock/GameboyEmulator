@@ -39,8 +39,11 @@ public:
 	HL HL;
 	u16 SP;
 	u16 PC;
+	bool isPrefixed;
 
 
 	CPU();
+
+	u8 flagsFromData(bool Z, bool S, bool H, bool C);
 };
 

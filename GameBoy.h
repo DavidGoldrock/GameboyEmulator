@@ -16,7 +16,7 @@ public:
 	void setValue(u32 location, u8 value);
 	u8 getValue(u32 location);
 private:
-	u8 fetch(u32 location);
+	u8 fetch();
 	void execute(u8 code);
 };
 
