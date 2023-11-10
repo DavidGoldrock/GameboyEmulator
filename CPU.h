@@ -45,8 +45,13 @@ public:
 	CPU();
 
 	void setZFlag(bool Z);
-	void setSFlag(bool S);
+	void setNFlag(bool N);
 	void setHFlag(bool H);
 	void setCFlag(bool C);
+
+	bool getZFlag();
+	bool getNFlag();
+	bool getHFlag();
+	bool getCFlag();
 };
 

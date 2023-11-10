@@ -20,8 +20,8 @@ void CPU::setZFlag(bool Z) {
 	}
 }
 
-void CPU::setSFlag(bool S) {
-	if (S) {
+void CPU::setNFlag(bool N) {
+	if (N) {
 		this->AF.FLAGS |= 0b01000000;
 	}
 	else {
@@ -45,4 +45,20 @@ void CPU::setCFlag(bool C) {
 	else {
 		this->AF.FLAGS &= 0b11101111;
 	}
+}
+
+bool CPU::getZFlag() {
+	return this->AF.FLAGS && 0b10000000 != 0;
+}
+
+bool CPU::getNFlag() {
+	return this->AF.FLAGS && 0b01000000 != 0;
+}
+
+bool CPU::getHFlag() {
+	return this->AF.FLAGS && 0b00100000 != 0;
+}
+
+bool CPU::getCFlag() {
+	return this->AF.FLAGS && 0b00010000 != 0;
 }
