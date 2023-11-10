@@ -44,6 +44,9 @@ public:
 
 	CPU();
 
-	u8 flagsFromData(bool Z, bool S, bool H, bool C);
+	void setZFlag(bool Z);
+	void setSFlag(bool S);
+	void setHFlag(bool H);
+	void setCFlag(bool C);
 };
 

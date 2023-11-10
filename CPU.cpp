@@ -11,19 +11,38 @@ CPU::CPU() {
 	this->isPrefixed = false;
 }
 
-u8 CPU::flagsFromData(bool Z, bool S, bool H, bool C) {
-	u8 res = 0b00000000;
+void CPU::setZFlag(bool Z) {
 	if (Z) {
-		res |= 0b10000000;
+		this->AF.FLAGS |= 0b10000000;
 	}
+	else {
+		this->AF.FLAGS &= 0b01111111;
+	}
+}
+
+void CPU::setSFlag(bool S) {
 	if (S) {
-		res |= 0b01000000;
+		this->AF.FLAGS |= 0b01000000;
 	}
+	else {
+		this->AF.FLAGS &= 0b10111111;
+	}
+}
+
+void CPU::setHFlag(bool H) {
 	if (H) {
-		res |= 0b00100000;
+		this->AF.FLAGS |= 0b00100000;
 	}
+	else {
+		this->AF.FLAGS &= 0b11011111;
+	}
+}
+
+void CPU::setCFlag(bool C) {
 	if (C) {
-		res |= 0b00010000;
+		this->AF.FLAGS |= 0b00010000;
 	}
-	return res;
+	else {
+		this->AF.FLAGS &= 0b11101111;
+	}
 }

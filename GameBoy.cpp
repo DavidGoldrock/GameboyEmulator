@@ -46,6 +46,13 @@ u8 GameBoy::fetch() {
 	return value;
 }
 
+#define LD_8D(Register) this->cpu->Register = fetch()
+#define LD_16D(Register) {\
+						this->cpu->Register = fetch(); \
+						this->cpu->Register <<= 8;\
+						this->cpu->Register += fetch();\
+						}
+
 void GameBoy::execute(u8 value) {
 	u8 opcode = fetch();
 	if (this->cpu->isPrefixed) {
@@ -56,10 +63,7 @@ void GameBoy::execute(u8 value) {
 			break;
 		case 0x01: // LD
 			//operand 1: BC, operand 2: d16 , length: 3 flags: ['-', '-', '-', '-'] cycles [12]
-			u16 operand = fetch();
-			operand << 8;
-			operand += fetch();
-			this->cpu->BC.BC = operand;
+			LD_16D(BC.BC);
 			break;
 		case 0x02: // LD
 			//operand 1: (BC), operand 2: A , length: 1 flags: ['-', '-', '-', '-'] cycles [8]
@@ -72,16 +76,16 @@ void GameBoy::execute(u8 value) {
 		case 0x04: // INC
 			//operand 1: B, operand 2:  , length: 1 flags: ['Z', '0', 'H', '-'] cycles [4]
 			this->cpu->BC.B++;
-			if (!this->cpu->BC.B) {
-				this->cpu->AF.FLAGS = this->cpu->flagsFromData(this->cpu->BC.B == 0, false, this->cpu->BC.B == 0, this->cpu->AF.FLAGS && 0b00010000);
-			}
+			this->cpu->setZFlag(this->cpu->BC.B == 0);
+			this->cpu->setSFlag(false);
+			this->cpu->setHFlag(this->cpu->BC.B == 0);
 			break;
 		case 0x05: // DEC
 			//operand 1: B, operand 2:  , length: 1 flags: ['Z', '1', 'H', '-'] cycles [4]
 			this->cpu->BC.B--;
-			if (!this->cpu->BC.B) {
-				this->cpu->AF.FLAGS = this->cpu->flagsFromData(this->cpu->BC.B == 0, true, this->cpu->BC.B == 0xff, this->cpu->AF.FLAGS && 0b00010000);
-			}
+			this->cpu->setZFlag(this->cpu->BC.B == 0);
+			this->cpu->setSFlag(true);
+			this->cpu->setHFlag(this->cpu->BC.B == 0);
 			break;
 		case 0x06: // LD
 			//operand 1: B, operand 2: d8 , length: 2 flags: ['-', '-', '-', '-'] cycles [8]
@@ -89,10 +93,13 @@ void GameBoy::execute(u8 value) {
 			this->cpu->BC.B = operand;
 			break;
 		case 0x07: // RLCA
-			//operand 1: , operand 2:  , length: 1 flags: ['0', '0', '0', 'C'] cycles [4]
 			break;
 		case 0x08: // LD
 			//operand 1: (a16), operand 2: SP , length: 3 flags: ['-', '-', '-', '-'] cycles [20]
+			u16 operand = fetch();
+			operand = operand << 8;
+			operand += fetch();
+			this->cpu->SP = operand;
 			break;
 		case 0x09: // ADD
 			//operand 1: HL, operand 2: BC , length: 1 flags: ['-', '0', 'H', 'C'] cycles [8]
