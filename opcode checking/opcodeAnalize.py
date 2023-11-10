@@ -46,7 +46,7 @@ def setFlags(flags):
     for element in flags:
         if flags[element] == element:
             returnVal += f"        // calculate {element}  this->cpu->set{element}Flag();\n"
-        else:
+        elif element != '-':
             returnVal += f"        this->cpu->set{element}Flag({'true' if flags[element] == '1' else 'false'});\n"
     return returnVal[:-1]
 
