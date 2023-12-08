@@ -60,10 +60,12 @@ def delayCycles(cycles):
         return f"        this->delayCycles({cycles[0]});"
     return f"        this->delayCycles({cycles});{'// MULTIPLE TIMING OPTIONS:' + ','.join(cycles[1:])}"
 
+
 def generateMnemonic(mnemonic):
     if "ILLEGAL" in mnemonic:
         return "ILLEGAL"
     return mnemonic
+
 
 def generateCases(JSON):
     JSON = dict(sorted(JSON.items(), key=lambda item: item[1]["mnemonic"]))
@@ -75,6 +77,7 @@ def generateCases(JSON):
 {delayCycles(JSON[e]['cycles'][0])}
         break;""")
 
+
 def generateCommands(instructionSet):
     l = []
     for element in instructionSet:
@@ -85,6 +88,8 @@ def generateCommands(instructionSet):
     l = sorted(l)
     for command in l:
         print(command)
+
+
 with open("Opcodes.json", "r") as file:
     JSONFILE = json.load(file)
     print("if(this->cpu->isPrefixed) {")
