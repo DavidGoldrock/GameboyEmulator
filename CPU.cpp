@@ -1,64 +1,58 @@
 #include "CPU.h"
 
-
-CPU::CPU() {
+CPU::CPU()
+{
 	this->AF = {0};
 	this->BC = {0};
 	this->DE = {0};
 	this->HL = {0};
 	this->SP = 0;
 	this->PC = 0;
+	this->e8 = 0;
+	this->n8 = 0;
+	this->a8 = 0;
+	this->n16 = 0;
+	this->a16 = 0;
+	this->im = 0;
 	this->isPrefixed = false;
 }
 
-void CPU::setZFlag(bool Z) {
-	if (Z) {
-		this->AF.FLAGS |= 0b10000000;
-	}
-	else {
-		this->AF.FLAGS &= 0b01111111;
-	}
+void CPU::setZFlag(bool Z)
+{
+	BIT_SET(this->AF.FLAGS, 8, Z)
 }
 
-void CPU::setNFlag(bool N) {
-	if (N) {
-		this->AF.FLAGS |= 0b01000000;
-	}
-	else {
-		this->AF.FLAGS &= 0b10111111;
-	}
+void CPU::setNFlag(bool N)
+{
+	BIT_SET(this->AF.FLAGS, 7, N)
 }
 
-void CPU::setHFlag(bool H) {
-	if (H) {
-		this->AF.FLAGS |= 0b00100000;
-	}
-	else {
-		this->AF.FLAGS &= 0b11011111;
-	}
+void CPU::setHFlag(bool H)
+{
+	BIT_SET(this->AF.FLAGS, 6, H)
 }
 
-void CPU::setCFlag(bool C) {
-	if (C) {
-		this->AF.FLAGS |= 0b00010000;
-	}
-	else {
-		this->AF.FLAGS &= 0b11101111;
-	}
+void CPU::setCFlag(bool C)
+{
+	BIT_SET(this->AF.FLAGS, 5, C)
 }
 
-bool CPU::getZFlag() {
-	return this->AF.FLAGS && 0b10000000 != 0;
+bool CPU::getZFlag()
+{
+	return BIT(this->AF.FLAGS, 8)
 }
 
-bool CPU::getNFlag() {
-	return this->AF.FLAGS && 0b01000000 != 0;
+bool CPU::getNFlag()
+{
+	return BIT(this->AF.FLAGS, 7)
 }
 
-bool CPU::getHFlag() {
-	return this->AF.FLAGS && 0b00100000 != 0;
+bool CPU::getHFlag()
+{
+	return BIT(this->AF.FLAGS, 6)
 }
 
-bool CPU::getCFlag() {
-	return this->AF.FLAGS && 0b00010000 != 0;
+bool CPU::getCFlag()
+{
+	return BIT(this->AF.FLAGS, 5)
 }

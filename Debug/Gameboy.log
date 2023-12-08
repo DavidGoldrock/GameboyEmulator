@@ -1,5 +1,8 @@
-﻿  CPU.cpp
-  GameBoy.cpp
-  main.cpp
-  Generating Code...
-  Gameboy.vcxproj -> D:\DosProg\programming\cpp\gameboy\Gameboy\Debug\Gameboy.exe
+﻿  GameBoy.cpp
+E:\Gameboy\GameBoy.cpp(200,1): warning C4005: 'CP_4_2': macro redefinition
+E:\Gameboy\GameBoy.cpp(189): message : see previous definition of 'CP_4_2'
+E:\Gameboy\GameBoy.cpp(640,1): warning C4005: 'SUB_4_2': macro redefinition
+E:\Gameboy\GameBoy.cpp(629): message : see previous definition of 'SUB_4_2'
+E:\Gameboy\GameBoy.cpp(680,1): warning C4005: 'XOR_4_2': macro redefinition
+E:\Gameboy\GameBoy.cpp(671): message : see previous definition of 'XOR_4_2'
+  Gameboy.vcxproj -> E:\Gameboy\Debug\Gameboy.exe

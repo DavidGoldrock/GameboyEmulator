@@ -11,6 +11,7 @@ int main() {
 	//for (int i = 0x0000; i < 0x7fff + 1; i++) {
 	//	std::cout << "Location [" << i << "] value (" << (int)gb->getValue(i) << ")" << std::endl;
 	//}
+	gb->execute(0x88);
 	gb->cpu->AF.A = 0xff;
 	std::cout << "gb->cpu->A: " << (int)gb->cpu->AF.A << std::endl;
 	std::cout << "gb->cpu->FLAGS: " << (int)gb->cpu->AF.FLAGS << std::endl;

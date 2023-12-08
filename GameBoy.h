@@ -15,8 +15,12 @@ public:
 
 	void setValue(u32 location, u8 value);
 	u8 getValue(u32 location);
-private:
+
 	u8 fetch();
+	u16 fetch16();
+	void delayCycles(int cycles);
 	void execute(u8 code);
+private:
+	
 };
 

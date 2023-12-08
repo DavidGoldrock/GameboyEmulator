@@ -39,6 +39,12 @@ public:
 	HL HL;
 	u16 SP;
 	u16 PC;
+	u8  n8;
+	u8  e8;
+	u8  a8;
+	u16 n16;
+	u16 a16;
+	u32 im;
 	bool isPrefixed;
 
 

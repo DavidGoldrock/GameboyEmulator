@@ -1,1 +1,2 @@
 D:\DosProg\programming\cpp\gameboy\Gameboy\Debug\Gameboy.exe
+E:\Gameboy\Debug\Gameboy.exe
